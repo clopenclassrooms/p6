@@ -14,15 +14,21 @@ class TrickGroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add(
+                'name',
+                TextType::class,
+                array(
                 'required' => false
-            ));
+            )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => TrickGroup::class,
-        ]);
+        ]
+        );
     }
 }

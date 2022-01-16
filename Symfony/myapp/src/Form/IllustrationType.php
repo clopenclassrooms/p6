@@ -14,7 +14,10 @@ class IllustrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('img', FileType::class, [
+            ->add(
+                'img',
+                FileType::class,
+                [
                 'label' => 'Image (PDF file)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -26,7 +29,8 @@ class IllustrationType extends AbstractType
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
-                    new File([
+                    new File(
+                        [
                         'maxSize' => '2024k',
                         'mimeTypes' => [
                             'image/bmp',
@@ -35,9 +39,11 @@ class IllustrationType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
+                    ]
+                    )
                 ],
-            ])
+            ]
+            )
             ->add('fileName')
             ->add('images', FileType::class, [
                 'label' => false,

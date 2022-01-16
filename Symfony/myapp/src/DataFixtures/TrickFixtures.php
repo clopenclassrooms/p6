@@ -24,7 +24,7 @@ class TrickFixtures extends Fixture
     private $_trickRepository;
     private $_userRepository;
 
-    public function __construct(UserRepository $userRepository, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository,UserPasswordEncoderInterface $encoder)
+    public function __construct(UserRepository $userRepository, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, UserPasswordEncoderInterface $encoder)
     {
         $this->_encoder = $encoder;
         $this->_trickGroupRepository = $trickGroupRepository;
@@ -37,18 +37,18 @@ class TrickFixtures extends Fixture
         $faker = Factory::create('FR-fr');
         
         //create users
-            //user test
-            $user = new User();
-            $email = "test"; //while be use for create the password
-            $user->setUsername("test")
+        //user test
+        $user = new User();
+        $email = "test"; //while be use for create the password
+        $user->setUsername("test")
                 ->setName("test")
                 ->setEmail("test@test.test")
                 ->setIsVerified(true)
                 ->setPassword($this->_encoder->encodePassword($user, "test@test.test"))
                 ->setPhoto('/uploads/img/1.jpg');
-            $manager->persist($user);
+        $manager->persist($user);
 
-            //other users
+        //other users
         $NB_USERS = 9;
         for ($i=0;$i < $NB_USERS;$i++) {
             $user = new User();
@@ -163,7 +163,7 @@ class TrickFixtures extends Fixture
         $video = new Video;
         $video->setUrl($VideoUrlStart . 'f9FjhCt_w2U'. $VideoUrlEnd)
             ->setTrick($trick);
-                $manager->persist($trick);
+        $manager->persist($trick);
         $manager->persist($video);
         $manager->flush();
 
@@ -182,7 +182,7 @@ class TrickFixtures extends Fixture
         $video = new Video;
         $video->setUrl($VideoUrlStart . '_Qq-YoXwNQY'. $VideoUrlEnd)
             ->setTrick($trick);
-                $manager->persist($trick);
+        $manager->persist($trick);
         $manager->persist($video);
         $manager->flush();
 
@@ -201,7 +201,7 @@ class TrickFixtures extends Fixture
         $video = new Video;
         $video->setUrl($VideoUrlStart . 'JMS2PGAFMcE'. $VideoUrlEnd)
             ->setTrick($trick);
-                $manager->persist($trick);
+        $manager->persist($trick);
         $manager->persist($video);
         $manager->flush();
         
@@ -220,7 +220,7 @@ class TrickFixtures extends Fixture
         $video = new Video;
         $video->setUrl($VideoUrlStart . '9T5AWWDxYM4'. $VideoUrlEnd)
             ->setTrick($trick);
-                $manager->persist($trick);
+        $manager->persist($trick);
         $manager->persist($video);
         $manager->flush();
 
@@ -242,7 +242,7 @@ class TrickFixtures extends Fixture
         $video = new Video;
         $video->setUrl($VideoUrlStart . 'eGJ8keB1-JM'. $VideoUrlEnd)
             ->setTrick($trick);
-                $manager->persist($trick);
+        $manager->persist($trick);
         $manager->persist($video);
         $manager->flush();
 
@@ -250,10 +250,12 @@ class TrickFixtures extends Fixture
         $trick = new Trick;
         $trick->setName('front flips')
             ->setCreatedAt($faker->dateTime('now'))
-            ->setDescription('Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.
+            ->setDescription(
+                'Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.
             Il est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.
             Les flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.
-            Néanmoins, en dépit de la difficulté technique relative d\'une telle figure, le danger de retomber sur la tête ou la nuque est réel et conduit certaines stations de ski à interdire de telles figures dans ses snowparks.')
+            Néanmoins, en dépit de la difficulté technique relative d\'une telle figure, le danger de retomber sur la tête ou la nuque est réel et conduit certaines stations de ski à interdire de telles figures dans ses snowparks.'
+            )
             ->setSlug($slugger->slug($trick->getName()))
             ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Flips')))
             ;
@@ -264,7 +266,7 @@ class TrickFixtures extends Fixture
         $video = new Video;
         $video->setUrl($VideoUrlStart . 'eGJ8keB1-JM'. $VideoUrlEnd)
             ->setTrick($trick);
-                $manager->persist($trick);
+        $manager->persist($trick);
         $manager->persist($video);
         $manager->flush();
 
@@ -272,8 +274,10 @@ class TrickFixtures extends Fixture
         $trick = new Trick;
         $trick->setName('Nose slide')
             ->setCreatedAt($faker->dateTime('now'))
-            ->setDescription('Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.
-            On peut slider avec la planche centrée par rapport à la barre (celle-ci se situe approximativement au-dessous des pieds du rideur), mais aussi en nose slide, c\'est-à-dire l\'avant de la planche sur la barre, ou en tail slide, l\'arrière de la planche sur la barre.')
+            ->setDescription(
+                'Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.
+            On peut slider avec la planche centrée par rapport à la barre (celle-ci se situe approximativement au-dessous des pieds du rideur), mais aussi en nose slide, c\'est-à-dire l\'avant de la planche sur la barre, ou en tail slide, l\'arrière de la planche sur la barre.'
+            )
             ->setSlug($slugger->slug($trick->getName()))
             ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Slides')))
             ;
@@ -292,7 +296,7 @@ class TrickFixtures extends Fixture
         $NB_COMMENTAIRES = 100;
         $allTricks = $this->_trickRepository->findAll();
         $allUser = $this->_userRepository->findAll();
-        for ($i=0; $i < $NB_COMMENTAIRES; $i++) { 
+        for ($i=0; $i < $NB_COMMENTAIRES; $i++) {
             $user = $faker->randomElements($allUser)[0];
             $trick = $faker->randomElements($allTricks)[0];
             $comment = new Comment;
@@ -303,6 +307,5 @@ class TrickFixtures extends Fixture
             $manager->persist($comment);
             $manager->flush();
         }
-        
     }
 }

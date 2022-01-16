@@ -44,9 +44,13 @@ class TrickController extends AbstractController
         $trick = new Trick;
         
         $formTrick = $this->createForm(TrickType::class, $trick);
-        $formTrick->add('submit', SubmitType::class, [
+        $formTrick->add(
+            'submit',
+            SubmitType::class,
+            [
             'label' => 'Rajouter le trick'
-        ]);
+            ]
+        );
         
         $formTrick->handleRequest($request);
         if ($formTrick->isSubmitted() && $formTrick->isValid()) {
@@ -197,9 +201,13 @@ class TrickController extends AbstractController
 
         $comment = new Comment;
         $formComment = $this->createForm(CommentType::class, $comment);
-        $formComment->add('submit', SubmitType::class, [
+        $formComment->add(
+            'submit',
+            SubmitType::class,
+            [
             'label' => 'Ajouter un commentaire'
-        ]);
+            ]
+        );
 
         $formComment->handleRequest($request);
 

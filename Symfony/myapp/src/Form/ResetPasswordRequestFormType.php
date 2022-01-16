@@ -13,9 +13,7 @@ class ResetPasswordRequestFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('username')
-        ;
+        $builder->add('username');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

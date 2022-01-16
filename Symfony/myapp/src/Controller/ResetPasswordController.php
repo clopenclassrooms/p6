@@ -55,7 +55,7 @@ class ResetPasswordController extends AbstractController
             'reset_password/request.html.twig',
             [
             'requestForm' => $form->createView(),
-        ]
+            ]
         );
     }
 
@@ -147,9 +147,11 @@ class ResetPasswordController extends AbstractController
 
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(
+            [
             'email' => $emailFormData,
-        ]);
+            ]
+        );
 
         // Do not reveal whether a user account was found or not.
         if (!$user) {
@@ -176,9 +178,11 @@ class ResetPasswordController extends AbstractController
             ->to($user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')
-            ->context([
+            ->context(
+                [
                 'resetToken' => $resetToken,
-            ])
+                ]
+            )
         ;
 
         $mailer->send($email);

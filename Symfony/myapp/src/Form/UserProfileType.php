@@ -17,7 +17,10 @@ class UserProfileType extends AbstractType
             ->add('name')
             ->add('email')
             ->add('username')
-            ->add('img', FileType::class, [
+            ->add(
+                'img',
+                FileType::class,
+                [
                 'label' => ' ',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -29,7 +32,8 @@ class UserProfileType extends AbstractType
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
-                    new File([
+                    new File(
+                        [
                         'maxSize' => '2024k',
                         'mimeTypes' => [
                             'image/bmp',
@@ -38,17 +42,21 @@ class UserProfileType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
+                    ]
+                    )
                 ],
-            ])
+            ]
+            )
             ->add('photo')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => User::class,
-        ]);
+        ]
+        );
     }
 }
