@@ -1,3 +1,5 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/eab5d78c07814f4d8c8ff28dcd75b0d0)](https://www.codacy.com/gh/clopenclassrooms/p6/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=clopenclassrooms/p6&amp;utm_campaign=Badge_Grade)
+
 # Project P6
 ## Installation
 ### Download the project
