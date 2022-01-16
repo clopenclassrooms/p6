@@ -1,0 +1,132 @@
+{% block _trick_description_row %}
+        {{ form_widget(form)}}
+{% endblock %}
+
+{% block _trick_description_widget %}
+    <textarea id="{{ form.vars.id }}" class="form-control" name="{{ form.vars.full_name }}">{{ form.vars.value }}</textarea>
+{% endblock %}
+
+{% block _trick_videos_row %}
+        {{ form_widget(form, {
+                'attr': {
+                    'data-widget-tags': '<div></div>'
+                    }
+                })}}
+{% endblock %}
+
+{% block _trick_videos_widget %}
+    {{ form_widget(form)}}
+        <button type="button"
+        class="add-another-collection-widget"
+        data-list-selector="#trick_videos">Rajouter une vidéo</button>
+{% endblock %}
+
+{% block _trick_videos_entry_row %}
+    {{ form_widget(form)}}
+{% endblock %}
+
+{% block _trick_videos_entry_widget %}
+<div class="trickVideo videoMiniBox flex-column border border-dark m-3 p-0">
+    <div class="w-100 trickMiniBoxVideo">
+        <iframe 
+            id="video{{ form.vars.name }}" 
+            width="100%"
+            height="100%"
+            frameborder="0" 
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div>
+        <fieldset class="form-group">
+            <div id="{{ form.url.vars.id }}">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="{{ form.url.vars.id }}" 
+                        name="{{ form.url.vars.full_name}}" 
+                        required="required" 
+                        maxlength="255" 
+                        class="form-control" 
+                        value="{{ form.url.vars.value }}">
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="trickMiniBoxTitreAndActionsContainer d-flex flex-row border-top border-dark">
+        <div class="text-center w-100 m-3"> 
+        </div>
+        <div class="m-3">
+            <a href=""><img src="{{ asset('/img/modify.jpg') }}"></a>
+        </div>
+        <div class="m-3">
+            <a href=""><img src="{{ asset('/img/delete.jpg') }}"></a>
+        </div>
+    </div>
+    <script>
+        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var url = "{{ form.url.vars.value }}";
+        var match = url.match(regExp);
+        if (match && match[2].length == 11) 
+        {
+            var id = match[2];
+            var embedlink = "http://www.youtube.com/embed/" + id;
+            var iframe = document.getElementById("video{{ form.vars.name }}");
+            iframe.src = embedlink;
+        }
+    </script>
+</div>
+{% endblock %}
+
+{% block _trick_illustrations_row %}
+    {{ form_widget(form, {
+                'attr': {
+                    'data-widget-tags': '<div></div>'
+                    }
+                })}}
+{% endblock %}
+
+{% block _trick_illustrations_widget %}
+    {{ form_widget(form)}}
+        <button type="button"
+        class="add-another-collection-widget"
+        data-list-selector="#trick_illustrations">Rajouter une image</button>
+{% endblock %}
+
+{% block _trick_illustrations_entry_row %}
+    {{ form_widget(form)}}
+{% endblock %}
+
+{% block _trick_illustrations_entry_widget %}
+    <div class="illustrationMiniBox flex-column  border border-dark  m-3 p-0">
+        <div class="w-100">
+            <img class="trickMiniBoxPicture w-100" src="{{ form.fileName.vars.value }}">
+        </div>
+        <div>
+            <fieldset class="form-group">
+                <div id="{{ form.fileName.vars.id }}">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="{{ form.fileName.vars.id }}" 
+                            name="{{ form.fileName.vars.full_name }}" 
+                            required="required" 
+                            maxlength="255" 
+                            class="form-control" 
+                            value="{{ form.fileName.vars.value }}">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="trickMiniBoxTitreAndActionsContainer d-flex flex-row border-top border-dark">
+            <div class="text-center w-100 m-3"> 
+            </div>
+            <div class="m-3">
+                <a href=""><img src="{{ asset('/img/modify.jpg') }}"></a>
+            </div>
+            <div class="m-3">
+                <a href=""><img src="{{ asset('/img/delete.jpg') }}"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

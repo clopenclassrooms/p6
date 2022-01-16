@@ -1,0 +1,164 @@
+{% form_theme formComment 'form_themes/comment_layout.html.twig' %}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section id="imageHeader">
+    <div class="position-relative">
+        <div class="titleContainer position-absolute d-flex flex-column">
+            <div class="text-center">
+                <h1>{{ trick.name }}</h1>
+            </div>
+        </div>
+        {% if app.user %}
+        <div class="modifyOrDelete position-absolute border border-dark d-flex flex-row bg-light ">
+            <div class="m-3">
+                <a href="{{ path('modifyTrick',{ 'slug': trick.slug }) }}"><img src="{{ asset('/img/modify.jpg') }}"></a>
+            </div>
+            <div class="m-3">
+                <a href="{{ path('deleteTrick',{ 'slug': trick.slug }) }}"><img src="{{ asset('/img/delete.jpg') }}"></a>
+            </div>
+        </div>
+        {% endif %}
+        <div class="arrowPointingDownContainer position-absolute ">
+            <img class="arrowPointingDown" src="{{ asset('/img/arrowPointingDown.png') }}" onClick="window.location.href='#illustrationAndVideoContainer';">
+        </div>
+        <div class="w-100">
+            <img class="headerPicture w-100" src="{{ asset('/img/homePageHeader.jpg') }}"></img>
+        </div>
+    </div>
+</section>
+<section id="displayTrick">
+    <div id="buttonDisplayImgAndVideo" class="justify-content-center m-3">
+        <button class="btn btn-primary" onClick="
+                    var mobileMenuDeployement = document.getElementById('illustrationAndVideoContainer');
+                    if (mobileMenuDeployement.classList.contains('displayFlex'))
+                    {
+                        mobileMenuDeployement.classList.remove('displayFlex');
+                    }else
+                    {
+                        mobileMenuDeployement.classList.add('displayFlex');
+                    }
+                    ">Afficher les images et vidéos</button>
+    </div>
+    <div id="illustrationAndVideoContainer" class="flex-column mt-5">
+        <div class="listIllustrationAndVideo m-3">
+            <div id="trick_illustrations">
+                {% for illustration in trick.illustrations %}
+                <div class="illustrationMiniBox flex-column border border-dark m-3 p-0">
+                    <div class="w-100">
+                        <img class="trickMiniBoxPicture w-100" src="{{ illustration.fileName }}">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="trick_videos">
+                {% for video in trick.videos %}
+                <div class="videoMiniBox flex-column border border-dark m-3 p-0">
+                    {{ video.url | raw}}
+                </div>
+                <script>
+                    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    var url = "{{ video.url }}";
+                    var match = url.match(regExp);
+                    if (match && match[2].length == 11) 
+                    {
+                        var id = match[2];
+                        var embedlink = "http://www.youtube.com/embed/" + id;
+                        var iframe = document.getElementById("video{{ video.id }}");
+                        iframe.src = embedlink;
+                    }
+                </script> 
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-center">
+        <div class="descriptionWidth d-flex flex-column">
+            <div class="d-flex flex-column">
+                <div>
+                    {{ trick.description }}
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                {% if trick.trickgroup.name is defined %}
+                <div class="border border-black m-1 m-lg-4">
+                    <span>
+                        Groupe de trick : <strong>{{ trick.trickgroup.name }}</strong>
+                    </span>
+                </div>
+                {% endif %}
+                <div class="border border-black m-1 m-lg-4">
+                    <span>
+                        Date de création : <strong>{{ trick.createdat|date("d/m/Y") }}</strong>
+                    </span>
+                </div>
+                {% if  trick.modifyat %}
+                <div class="border border-black m-1 m-lg-4">
+                    <span>
+                        Date de modification : <strong>{{ trick.modifyat|date("d/m/Y") }}</strong>
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if app.user %}
+    <div>
+        <div class="justify-content-center d-flex">
+            <div class="commentWidth border-top border-bottom border-black d-flex justify-content-center">
+                {{ form(formComment, {'attr': {'class': 'd-flex w-100 m-3'}}) }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div id="comments" class="d-flex flex-column m-4">
+        {% for comment in trick.comments | reverse | slice(0,10) %}
+        <div class="d-flex justify-content-center flex-row">
+            <div class="commentContainer d-flex flex-row">
+                <div class=" m-1 p-1 d-flex flex-column">
+                    <div>
+                        {% if comment.user.photo %}
+                        <img class="avatar" src="{{ comment.user.photo }}">
+                        {% else %}
+                        <img class="avatar" src="{{ asset('/img/userAvatar.jpg') }}">
+                        {% endif %}
+                    </div>
+                    <div class="text-center">{{ comment.user.name }}</div>
+                </div>
+                <div class="border border-black m-1 p-1 w-100">
+                    <h5>{{ comment.comment }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="row text-center m-4">
+        {% if trick.comments | length > 10 %}
+            <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
+        {% endif %}
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    click = 0;
+    function loadMoreComments(event) {
+        event.preventDefault();
+        click++;
+        var start = 10 * click;
+        
+        const url = "/trick/loadMoreComments/{{ trick.id }}/" + start;
+        axios.get(url).then(function(response) {
+            $("#comments").append(response.data);
+        });
+        if (start >= {{ trick.comments | length }})
+        {
+            document.getElementById('loadMoreComments').className += " d-none";
+        }
+    }
+    document.getElementById("loadMoreComments").addEventListener("click", loadMoreComments);
+</script>
+</section>
+{% endblock %}

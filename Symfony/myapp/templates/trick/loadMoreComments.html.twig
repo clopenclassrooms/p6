@@ -1,0 +1,20 @@
+
+{% for comment in trick.comments | reverse | slice(start, 10) %}
+        <div class="d-flex justify-content-center flex-row">
+            <div class="commentContainer d-flex flex-row">
+                <div class=" m-1 p-1 d-flex flex-column">
+                    <div>
+                        {% if comment.user.photo %}
+                        <img class="avatar" src="{{ comment.user.photo }}">
+                        {% else %}
+                        <img class="avatar" src="{{ asset('/img/userAvatar.jpg') }}">
+                        {% endif %}
+                    </div>
+                    <div class="text-center">{{ comment.user.name }}</div>
+                </div>
+                <div class="border border-black m-1 p-1 w-100">
+                    <h5>{{ comment.comment }}</h5>
+                </div>
+            </div>
+        </div>
+{% endfor %}

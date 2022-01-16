@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block stylesheets %}
+        <link href="{{ asset('/css/style.css') }}" rel="stylesheet"> 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">    
+        {% endblock %}
+        {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        {% endblock %}
+    </head>
+
+    <body>
+        <header>
+        <div class="d-none d-lg-flex flex-row justify-content-between col-12 menuContainer ">
+            <div class="">
+                <div class="m-3"><a href="{{ path('homepage')}}">Snowtricks</a></div>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="m-3"><a href="{{ path('homepage')}}">accueil</a></div>
+                <div class="m-3"><a href="{{ path('displayAllTricks')}}">Liste des Tricks</a></div>
+                {% if app.user %}
+                    <div class="m-3"><a href="{{ path('addTrick')}}">Rajouter un trick</a></div>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-row">
+
+                {% if app.user %}
+                <div class="m-3"><a href="{{ path('modifyProfile')}}">Mon compte</a></div>
+                <div class="m-3"><a href="{{ path('security_logout')}}">Se déconnecter</a></div>
+                {% else %}
+                <div class="m-3"><a href="{{ path('app_register')}}">Créer un compte</a></div>
+                <div class="m-3"><a href="{{ path('security_login')}}">S'identifier</a></div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+        {% block body %}
+        
+        {% endblock %}
+        <section id="menuMobile">
+            <div class="ButtomMobileSpace d-flex d-lg-none">
+
+            </div>
+            <div id="mobileMenuDeployement" class=" d-lg-none w-100 bg-light border border-black flex-column">
+                <div class="border border-black p-3 text-center"><a href="{{ path('displayAllTricks')}}">Liste des Tricks</a></div>
+                {% if app.user %}
+                    <div class="border border-black p-3 text-center"><a href="{{ path('addTrick')}}">Rajouter un trick</a></div>
+                {% endif %}
+                <div class="border border-black p-3 text-center"><a href="{{ path('app_register')}}">Créer un compte</a></div>
+            </div>
+            <div class="mobileMenu d-flex d-lg-none w-100 bg-light border border-black justify-content-around">
+                <div class="align-middle">
+                    <img class="mobileMenuImg" src="{{ asset('/img/homepage.jpg') }}" onClick="window.location.href='{{ path('homepage')}}';">
+                </div>
+                <div class="align-middle">
+                    <img class="mobileMenuImg" src="{{ asset('/img/menu.jpg') }}" onClick="
+                    var mobileMenuDeployement = document.getElementById('mobileMenuDeployement');
+                    if (mobileMenuDeployement.classList.contains('displayFlex'))
+                    {
+                        mobileMenuDeployement.classList.remove('displayFlex');
+                    }else
+                    {
+                        mobileMenuDeployement.classList.add('displayFlex');
+                    }
+                    ">
+                </div>
+                <div class="align-middle">
+                    {% if app.user %}
+                        <img class="mobileMenuImg" src="{{ asset('/img/logout.jpg') }}" onClick="window.location.href='{{ path('security_logout')}}';">
+                    {% else %}
+                        <img class="mobileMenuImg" src="{{ asset('/img/login.jpg') }}" onClick="window.location.href='{{ path('security_login')}}';">
+                    {% endif %}
+                </div>
+            <div>
+        </section>
+    </body>
+</html>

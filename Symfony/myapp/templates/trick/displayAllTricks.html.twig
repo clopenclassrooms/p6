@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section id="imageHeader">
+    <div class="position-relative">
+        <div class="titleContainer position-absolute d-flex flex-column">
+            <div class="text-center">
+                <h1>Snowtricks</h1>
+            </div>
+            <div class="text-center">
+                <h2>Le SNOW comme on l'aime!!</h2>
+            </div>
+        </div>
+        <div class="arrowPointingDownContainer position-absolute ">
+            <img class="arrowPointingDown" src="{{ asset('/img/arrowPointingDown.png') }}" onClick="window.location.href='#displayAllTricks';">
+        </div>
+        <div class="w-100">
+            <img class="headerPicture w-100" src="{{ asset('/img/homePageHeader.jpg') }}"></img>
+        </div>
+    </div>
+</section>
+<section id="displayAllTricks">
+    <div class="d-flex flex-column mt-5">
+        <div class="text-center">
+            <h1>Display all tricks</h1>
+        </div>
+        <div id="Tricks" class="d-flex flex-row flex-wrap m-3">
+        {% for trick in tricks | slice(0,4) %}
+            <div class="trickMiniBox flex-column border border-dark m-3 p-0">
+                <div class="w-100">
+                    {% if trick.illustrations is not empty %}
+                        <img class="trickMiniBoxPicture w-100" src="{{ trick.illustrations[0].fileName}}">
+                        {% else %}
+                        <img class="trickMiniBoxPicture w-100" src="{{ asset('/img/trickNoImage.jpg') }}">
+                    {% endif %}
+                </div>
+                <div class="trickMiniBoxTitreAndActionsContainer d-flex flex-row">
+                    <div class="text-center w-100 m-3">
+                        <a href="{{ path('displayTrick',{ 'slug': trick.slug })}}"><span class="align-middle h-100 d-inline-block" >{{ trick.name }}</span></a>
+                    </div>
+                    <div class="m-3">
+                        <a href="{{ path('modifyTrick',{ 'slug': trick.slug }) }}"><img src="{{ asset('/img/modify.jpg') }}"></a>
+                    </div>
+                    <div class="m-3">
+                        <a href="{{ path('deleteTrick',{ 'slug': trick.slug }) }}" onclick="return confirm(`Voulez-vous réellement supprimer le trick : {{trick.name}} ?`)"><img src="{{ asset('/img/delete.jpg') }}"></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="row text-center">
+            <button id="loadMoreTricks" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de tricks</button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <img id="arrowPointingUp" src="{{ asset('/img/arrowPointingUp.png') }}" onClick="window.location.href='#displayAllTricks';">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        click = 0;
+        function loadMoreTricks(event) {
+            event.preventDefault();
+            click++;
+            var start = 4 * click;
+            console.log(start);
+            if (start + 4 > 15){
+                document.getElementById("arrowPointingUp").style.display = "block";
+                console.log("plus de 15");
+            }
+            const url = "/trick/loadMoreTricks/" + start;
+            axios.get(url).then(function(response) {
+                $("#Tricks").append(response.data);
+            });
+        }
+        document.getElementById("loadMoreTricks").addEventListener("click", loadMoreTricks);
+    </script>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form_themes/register_layout.html.twig' %}
+{% block body %}
+<h1>Inscription</h1>
+coucou
+{{ form_start(registrationForm)}}
+
+<button type="submit" class="btn btn-success">Inscription</button>
+{{ form_end(registrationForm)}}
+
+{% endblock %}

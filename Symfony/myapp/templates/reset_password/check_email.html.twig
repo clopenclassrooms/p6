@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+    <div class="text-center m-5">
+    <p>
+        Si votre compte existe, un email vous a été envoyé.
+        Cliquez sur le lien qu'il contient pour créer un nouveau mot de passe.
+    </p>
+    <p><a href="{{ path('homepage') }}")>Retour à l'accueil</a>
+    </div>
+{% endblock %}

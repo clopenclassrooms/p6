@@ -1,0 +1,23 @@
+{% for trick in tricks | slice(start, 4 ) %}
+
+    <div class="trickMiniBox flex-column border border-dark m-3 p-0">
+        <div class="w-100">
+            {% if trick.illustrations is not empty %}
+                <img class="trickMiniBoxPicture w-100" src="{{ trick.illustrations[0].fileName}}">
+                {% else %}
+                <img class="trickMiniBoxPicture w-100" src="{{ asset('/img/trickNoImage.jpg') }}">
+            {% endif %}
+        </div>
+        <div class="trickMiniBoxTitreAndActionsContainer d-flex flex-row">
+            <div class="text-center w-100 m-3">
+                <a href="{{ path('displayTrick',{ 'slug': trick.slug })}}"><span class="align-middle h-100 d-inline-block" >{{ trick.name }}</span></a>
+            </div>
+            <div class="m-3">
+                <a href="{{ path('modifyTrick',{ 'slug': trick.slug }) }}"><img src="{{ asset('/img/modify.jpg') }}"></a>
+            </div>
+            <div class="m-3">
+                <a href="{{ path('deleteTrick',{ 'slug': trick.slug }) }}" onclick="return confirm(`Voulez-vous réellement supprimer le trick : {{trick.name}} ?`)"><img src="{{ asset('/img/delete.jpg') }}"></a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
