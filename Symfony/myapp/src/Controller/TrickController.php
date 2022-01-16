@@ -43,7 +43,7 @@ class TrickController extends AbstractController
         $trickGroups = $trickGroupRepository->findAll();
         $trick = new Trick;
         
-        $formTrick = $this->createForm(TrickType::class,$trick);
+        $formTrick = $this->createForm(TrickType::class, $trick);
         $formTrick->add('submit', SubmitType::class, [
             'label' => 'Rajouter le trick'
         ]);
@@ -54,38 +54,41 @@ class TrickController extends AbstractController
             $slugger = new AsciiSlugger();
             $trick->setSlug($slugger->slug($trick->getName()));
 
-            if ($trick->getTrickGroup()->getName() == null){
+            if ($trick->getTrickGroup()->getName() == null) {
                 $trick->setTrickGroup(null);
             }
-            foreach($trick->getVideos() as $video){
-                 if ($video->getUrl() == null){
+            foreach ($trick->getVideos() as $video) {
+                if ($video->getUrl() == null) {
                     $trick->removeVideo($video);
-                 }else{
+                } else {
                     $video->setTrick($trick);
-                 }
+                }
             }
-            foreach($trick->getIllustrations() as $illustration){
-                if ($illustration->getFileName() == null){
-                   $trick->removeIllustration($illustration);
-                }else{
+            foreach ($trick->getIllustrations() as $illustration) {
+                if ($illustration->getFileName() == null) {
+                    $trick->removeIllustration($illustration);
+                } else {
                     $illustration->setTrick($trick);
-                 }
-           }
+                }
+            }
             $entityManagerInterface->persist($trick);
             $entityManagerInterface->flush();
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('trick/addTrick.html.twig', [
+        return $this->render(
+            'trick/addTrick.html.twig',
+            [
             'form' => $formTrick->createView(),
             'trick' => $trick,
             'trickGroups' => $trickGroups
-            ]);
+            ]
+        );
     }
     /**
      * @Route("/trick/modify/{slug}", name="modifyTrick")
      */
-    public function modifyTrick($slug,SluggerInterface $slugger, TrickGroupRepository $trickGroupRepository, Request $request, EntityManagerInterface $entityManagerInterface,TrickRepository $trickRepository): Response
+    public function modifyTrick($slug, SluggerInterface $slugger, TrickGroupRepository $trickGroupRepository, Request $request, EntityManagerInterface $entityManagerInterface, TrickRepository $trickRepository): Response
     {
         $securityContext = $this->container->get('security.authorization_checker');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -94,26 +97,26 @@ class TrickController extends AbstractController
 
         $trickGroups = $trickGroupRepository->findAll();
         $trick = $trickRepository->findBy(['slug' => $slug])[0];
-        $form = $this->createForm(TrickType::class,$trick);
-        $form->add('submit', SubmitType::class, [
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->add(
+            'submit',
+            SubmitType::class,
+            [
             'label' => 'Mettre à jour le trick',
-        ]);
+        ]
+        );
      
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $trick->setModifyAt(new DateTime());
             $slugger = new AsciiSlugger();
             $trick->setSlug($slugger->slug($trick->getName()));
             
-            for($i = 0;$i < count($form['illustrations']);$i++)
-            {
-                if (isset($form['illustrations'][$i]))
-                {
+            for ($i = 0;$i < count($form['illustrations']);$i++) {
+                if (isset($form['illustrations'][$i])) {
                     $imgFile = $form['illustrations'][$i]['img']->getData();
-                    if ($imgFile AND !is_null($imgFile)) 
-                    {  
+                    if ($imgFile and !is_null($imgFile)) {
                         $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
                         $safeFilename = $slugger->slug($originalFilename);
                         $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
@@ -128,10 +131,8 @@ class TrickController extends AbstractController
             }
 
             $illustrations = $trick->getIllustrations();
-            for ($i = 0;$i < count($illustrations);$i++)
-            {
-                if ($illustrations[$i]->getFileName() == null)
-                {
+            for ($i = 0;$i < count($illustrations);$i++) {
+                if ($illustrations[$i]->getFileName() == null) {
                     unset($illustrations[$i]);
                 }
             }
@@ -141,11 +142,14 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('trick/modifyTrick.html.twig', [
-            'form' => $form->createView(),
-            'trick' => $trick,
-            'trickGroups' => $trickGroups
-            ]);
+        return $this->render(
+            'trick/modifyTrick.html.twig',
+            [
+                'form' => $form->createView(),
+                'trick' => $trick,
+                'trickGroups' => $trickGroups
+            ]
+        );
     }
     /**
      * @Route("/trick/delete/{slug}", name="deleteTrick")
@@ -162,10 +166,12 @@ class TrickController extends AbstractController
         $entityManagerInterface->remove($trick);
         $entityManagerInterface->flush();
 
-        return $this->render('trick/deleteTrick.html.twig', [
+        return $this->render(
+            'trick/deleteTrick.html.twig',
+            [
             'trickName' => $trickName,
-        ]);
-
+        ]
+        );
     }
     /**
      * @Route("/", name="homepage")
@@ -173,22 +179,24 @@ class TrickController extends AbstractController
      */
     public function displayAllTricks(TrickRepository $trickRepository): Response
     {
-        
         $tricks = $trickRepository->findAll();
-        return $this->render('trick/displayAllTricks.html.twig', [
+        return $this->render(
+            'trick/displayAllTricks.html.twig',
+            [
             'tricks' => $tricks,
-        ]);
+        ]
+        );
     }
     /**
      * @Route("/trick/displayTrick/{slug}", name="displayTrick")
-     * 
+     *
      */
-    public function displayTrick($slug, EntityManagerInterface $entityManagerInterface,Request $request, TrickRepository $trickRepository): Response
+    public function displayTrick($slug, EntityManagerInterface $entityManagerInterface, Request $request, TrickRepository $trickRepository): Response
     {
         $trick = $trickRepository->findBy(['slug' => $slug])[0];
 
         $comment = new Comment;
-        $formComment = $this->createForm(CommentType::class,$comment);
+        $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->add('submit', SubmitType::class, [
             'label' => 'Ajouter un commentaire'
         ]);
@@ -196,7 +204,6 @@ class TrickController extends AbstractController
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
-
             $comment
             ->setCreateAt(new DateTime())
             ->setUser($this->getUser())
@@ -206,38 +213,46 @@ class TrickController extends AbstractController
             $entityManagerInterface->flush();
         }
 
-        return $this->render('trick/displayTrick.html.twig', [
+        return $this->render(
+            'trick/displayTrick.html.twig',
+            [
             'trick' => $trick,
             'formComment' => $formComment->createView()
-        ]);
+        ]
+        );
     }
 
     /**
-     * 
+     *
      * @Route("/trick/loadMoreComments/{idTrick}/{start}", name="loadMoreComments")
      */
     public function loadMoreComments(TrickRepository $trickRepository, $idTrick, $start = 10)
     {
         $trick = $trickRepository->findOneById((int)$idTrick);
 
-        return $this->render('trick/loadMoreComments.html.twig', [
+        return $this->render(
+            'trick/loadMoreComments.html.twig',
+            [
             'trick' => $trick,
             'start' => $start
-        ]);
+        ]
+        );
     }
 
     /**
-     * 
+     *
      * @Route("/trick/loadMoreTricks/{start}", name="loadMoreTricks")
      */
     public function loadMoreTricks(TrickRepository $trickRepository, $start = 5)
     {
         $tricks = $trickRepository->findAll();
 
-        return $this->render('trick/loadMoreTricks.html.twig', [
+        return $this->render(
+            'trick/loadMoreTricks.html.twig',
+            [
             'tricks' => $tricks,
             'start' => $start
-        ]);
+        ]
+        );
     }
-
 }

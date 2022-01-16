@@ -51,9 +51,12 @@ class ResetPasswordController extends AbstractController
                 $mailer
             );
         }
-        return $this->render('reset_password/request.html.twig', [
+        return $this->render(
+            'reset_password/request.html.twig',
+            [
             'requestForm' => $form->createView(),
-        ]);
+        ]
+        );
     }
 
     /**
@@ -69,9 +72,12 @@ class ResetPasswordController extends AbstractController
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        return $this->render(
+            'reset_password/check_email.html.twig',
+            [
             'resetToken' => $resetToken,
-        ]);
+        ]
+        );
     }
 
     /**
@@ -97,10 +103,13 @@ class ResetPasswordController extends AbstractController
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->addFlash('reset_password_error', sprintf(
-                'There was a problem validating your reset request - %s',
-                $e->getReason()
-            ));
+            $this->addFlash(
+                'reset_password_error',
+                sprintf(
+                    'There was a problem validating your reset request - %s',
+                    $e->getReason()
+                )
+            );
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
@@ -128,9 +137,12 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render(
+            'reset_password/reset.html.twig',
+            [
             'resetForm' => $form->createView(),
-        ]);
+        ]
+        );
     }
 
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse

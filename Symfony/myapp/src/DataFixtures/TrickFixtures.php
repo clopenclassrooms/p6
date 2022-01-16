@@ -19,17 +19,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class TrickFixtures extends Fixture
 {
-    private $encoder;
-    private $trickGroupRepository;
-    private $trickRepository;
-    private $userRepository;
+    private $_encoder;
+    private $_trickGroupRepository;
+    private $_trickRepository;
+    private $_userRepository;
 
     public function __construct(UserRepository $userRepository, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository,UserPasswordEncoderInterface $encoder)
     {
-        $this->encoder = $encoder;
-        $this->trickGroupRepository = $trickGroupRepository;
-        $this->trickRepository = $trickRepository;
-        $this->userRepository = $userRepository;
+        $this->_encoder = $encoder;
+        $this->_trickGroupRepository = $trickGroupRepository;
+        $this->_trickRepository = $trickRepository;
+        $this->_userRepository = $userRepository;
     }
 
     public function load(ObjectManager $manager)
@@ -44,7 +44,7 @@ class TrickFixtures extends Fixture
                 ->setName("test")
                 ->setEmail("test@test.test")
                 ->setIsVerified(true)
-                ->setPassword($this->encoder->encodePassword($user, "test@test.test"))
+                ->setPassword($this->_encoder->encodePassword($user, "test@test.test"))
                 ->setPhoto('/uploads/img/1.jpg');
             $manager->persist($user);
 
@@ -57,7 +57,7 @@ class TrickFixtures extends Fixture
                 ->setName($faker->name())
                 ->setEmail($email)
                 ->setIsVerified(true)
-                ->setPassword($this->encoder->encodePassword($user, $email))
+                ->setPassword($this->_encoder->encodePassword($user, $email))
                 ->setPhoto('/uploads/img/' . $i . '.jpg');
             $manager->persist($user);
         }
@@ -87,7 +87,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Saisie de la carre frontside de la planche entre les deux pieds avec la main avant.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Grabs')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Grabs')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'Mute1.jpg')
@@ -110,7 +110,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Grabs')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Grabs')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'Indy1.jpg')
@@ -133,7 +133,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Saisie de la partie avant de la planche, avec la main avant.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Grabs')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Grabs')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'nosegrab1.jpg')
@@ -154,7 +154,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Saisie de la carre backside de la planche entre les deux pieds avec la main arrière.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Grabs')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Grabs')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'stalefish1.jpg')
@@ -173,7 +173,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Saisie de la partie arrière de la planche, avec la main arrière.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Grabs')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Grabs')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'tailgrab1.jpg')
@@ -192,7 +192,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Un 180 désigne un demi-tour, soit 180 degrés d\'angle .')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Rotations')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Rotations')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  '1801.jpg')
@@ -211,7 +211,7 @@ class TrickFixtures extends Fixture
             ->setCreatedAt($faker->dateTime('now'))
             ->setDescription('Un 360, trois six pour un tour complet.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Rotations')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Rotations')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  '3601.jpg')
@@ -233,7 +233,7 @@ class TrickFixtures extends Fixture
             Les flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.
             Néanmoins, en dépit de la difficulté technique relative d\'une telle figure, le danger de retomber sur la tête ou la nuque est réel et conduit certaines stations de ski à interdire de telles figures dans ses snowparks.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Flips')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Flips')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'flip1.jpg')
@@ -255,7 +255,7 @@ class TrickFixtures extends Fixture
             Les flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.
             Néanmoins, en dépit de la difficulté technique relative d\'une telle figure, le danger de retomber sur la tête ou la nuque est réel et conduit certaines stations de ski à interdire de telles figures dans ses snowparks.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Flips')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Flips')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'frontflips1.jpg')
@@ -275,7 +275,7 @@ class TrickFixtures extends Fixture
             ->setDescription('Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.
             On peut slider avec la planche centrée par rapport à la barre (celle-ci se situe approximativement au-dessous des pieds du rideur), mais aussi en nose slide, c\'est-à-dire l\'avant de la planche sur la barre, ou en tail slide, l\'arrière de la planche sur la barre.')
             ->setSlug($slugger->slug($trick->getName()))
-            ->setTrickGroup($this->trickGroupRepository->findOneBy(array('name' => 'Slides')))
+            ->setTrickGroup($this->_trickGroupRepository->findOneBy(array('name' => 'Slides')))
             ;
         $illustration = new Illustration;
         $illustration->setFileName('/uploads/img/' .  'slide1.jpg')
@@ -290,8 +290,8 @@ class TrickFixtures extends Fixture
 
 
         $NB_COMMENTAIRES = 100;
-        $allTricks = $this->trickRepository->findAll();
-        $allUser = $this->userRepository->findAll();
+        $allTricks = $this->_trickRepository->findAll();
+        $allUser = $this->_userRepository->findAll();
         for ($i=0; $i < $NB_COMMENTAIRES; $i++) { 
             $user = $faker->randomElements($allUser)[0];
             $trick = $faker->randomElements($allTricks)[0];

@@ -30,10 +30,13 @@ class SecurityController extends AbstractController
         $form
             ->remove('confirmPassword');
 
-        return $this->render('security/login.html.twig', [
+        return $this->render(
+            'security/login.html.twig',
+            [
             'form'=>$form->createView(),
             'error' => $error
-            ]);
+            ]
+        );
     }
 
     /**
@@ -41,6 +44,5 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-
     }
 }

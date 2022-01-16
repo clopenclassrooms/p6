@@ -1,36 +1,35 @@
 /*principal css file*/
 
-:root
-{
-    --trickMiniBoxWidth:20vw;
-    --trickMiniBoxWidthMobile:100vw;
-    --arrowPointingDownWidth:15vh;
-    --arrowPointingDownHeight:15vh;
+:root {
+    --trickMiniBoxWidth: 20vw;
+    --trickMiniBoxWidthMobile: 100vw;
+    --arrowPointingDownWidth: 15vh;
+    --arrowPointingDownHeight: 15vh;
     --menuHeight: 50px;
     --titleContainerHeight: 20vh;
     --titleContainerWidth: 50vw;
-    --headerContainerHeight: calc( 100vh - var(--menuHeight));
-    --titleContainerTop: calc( var(--menuHeight) + ( var(--headerContainerHeight) / 2) - (var(--titleContainerHeight) / 2) );
-    --titleContainerLeft: calc( 50vw - ( var(--titleContainerWidth) / 2 ));
+    --headerContainerHeight: calc(100vh - var(--menuHeight));
+    --titleContainerTop: calc(var(--menuHeight) + (var(--headerContainerHeight) / 2) - (var(--titleContainerHeight) / 2));
+    --titleContainerLeft: calc(50vw - (var(--titleContainerWidth) / 2));
 }
 
-.menuContainer{
+.menuContainer {
     height: var(--menuHeight);
 }
 
-.headerPicture{
-    height: var(--headerContainerHeight) ;
-    object-fit:cover;
+.headerPicture {
+    height: var(--headerContainerHeight);
+    object-fit: cover;
 }
 
-.titleContainer{
+.titleContainer {
     height: var(--titleContainerHeight);
     width: var(--titleContainerWidth);
     top: var(--titleContainerTop);
     left: var(--titleContainerLeft);
 }
 
-.arrowPointingDownContainer, .arrowPointingDown, #arrowPointingUp{
+.arrowPointingDownContainer, .arrowPointingDown, #arrowPointingUp {
     width: var(--arrowPointingDownWidth);
     height: var(--arrowPointingDownHeight);
     bottom: 5vh;
@@ -39,57 +38,64 @@
 }
 
 @media (min-width: 993px) {
-    .trickMiniBox{
+    .trickMiniBox {
         width: var(--trickMiniBoxWidth);
         height: var(--trickMiniBoxWidth);
-        border-width:2px;
+        border-width: 2px;
     }
 }
 
 
 @media (max-width: 992px) {
-    .trickMiniBox{
+    .trickMiniBox {
         width: var(--trickMiniBoxWidthMobile);
-        border-width:2px;
+        border-width: 2px;
     }
 }
+
 @media (min-width: 993px) {
-    .trickMiniBoxPicture, .trickMiniBoxVideo{
-        object-fit:cover;
-        height: calc( var(--trickMiniBoxWidth) * 0.8);
+    .trickMiniBoxPicture, .trickMiniBoxVideo {
+        object-fit: cover;
+        height: calc(var(--trickMiniBoxWidth) * 0.8);
     }
-    .illustrationMiniBox, .videoMiniBox{
+
+    .illustrationMiniBox, .videoMiniBox {
         width: var(--trickMiniBoxWidth) !important;
-        border-width:2px;
+        border-width: 2px;
     }
-    illustrationMiniBox
-    #displayTrick #comment > .form-group{
+
+    illustrationMiniBox #displayTrick #comment>.form-group {
         width: 70%;
     }
-    #displayTrick #comment > .form-group:nth-of-type(2){
-        padding:10px;
+
+    #displayTrick #comment>.form-group:nth-of-type(2) {
+        padding: 10px;
         width: 20%;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
-    .trickMiniBoxTitreAndActionsContainer{
-        height: calc( var(--trickMiniBoxWidth) * 0.2);
+
+    .trickMiniBoxTitreAndActionsContainer {
+        height: calc(var(--trickMiniBoxWidth) * 0.2);
     }
 }
+
 @media (max-width: 992px) {
-    .trickMiniBoxPicture, .trickMiniBoxVideo{
-        object-fit:cover;
+    .trickMiniBoxPicture, .trickMiniBoxVideo {
+        object-fit: cover;
     }
-    .illustrationMiniBox, .videoMiniBox{
-        border-width:2px;
+
+    .illustrationMiniBox, .videoMiniBox {
+        border-width: 2px;
     }
-    illustrationMiniBox
-    #displayTrick #comment > .form-group{
+
+    illustrationMiniBox #displayTrick #comment>.form-group {
         width: 70%;
     }
-    #displayTrick #comment > .form-group:nth-of-type(2){
-        padding:10px;
+
+    #displayTrick #comment>.form-group:nth-of-type(2) {
+        padding: 10px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -103,137 +109,153 @@
 
 
 
-#trickTitleModificationContainer label{
-    display:none;
+#trickTitleModificationContainer label {
+    display: none;
 }
 
-#trickTitleModificationContainer > div{
+#trickTitleModificationContainer>div {
     margin-right: 20px;
 }
 
-img.avatar{
+img.avatar {
     width: 50px;
 }
 
 
 
 @media (min-width: 993px) {
-    #illustrationAndVideoContainer #trick_illustrations,#illustrationAndVideoContainer #trick_videos{
-        display:flex;
+    #illustrationAndVideoContainer #trick_illustrations, #illustrationAndVideoContainer #trick_videos {
+        display: flex;
         flex-direction: row;
     }
-    .listIllustrationAndVideo{
+
+    .listIllustrationAndVideo {
         display: flex;
         flex-direction: row;
         overflow: scroll;
     }
-    #buttonDisplayImgAndVideo{
-        display:none;
+
+    #buttonDisplayImgAndVideo {
+        display: none;
     }
-    .descriptionWidth, .commentWidth{
+
+    .descriptionWidth, .commentWidth {
         width: 95vw;
     }
-    #comment{
+
+    #comment {
         flex-direction: row;
         justify-content: center;
-    }   
-    .commentContainer{
+    }
+
+    .commentContainer {
         width: 50vw;
     }
-    .modidyInputContainer{
+
+    .modidyInputContainer {
         width: 75vw;
     }
-    .registerInputContainer{
+
+    .registerInputContainer {
         width: 25vw;
         border: 1px solid black;
     }
 }
+
 @media (max-width: 992px) {
-    #buttonDisplayImgAndVideo{
-        display:flex;
+    #buttonDisplayImgAndVideo {
+        display: flex;
     }
-    #illustrationAndVideoContainer{
+
+    #illustrationAndVideoContainer {
         display: none;
     }
-    #illustrationAndVideoContainer #trick_illustrations,#illustrationAndVideoContainer #trick_videos{
-        display:flex;
+
+    #illustrationAndVideoContainer #trick_illustrations, #illustrationAndVideoContainer #trick_videos {
+        display: flex;
         flex-direction: column;
     }
-    .listIllustrationAndVideo{
+
+    .listIllustrationAndVideo {
         display: flex;
         flex-direction: column;
         overflow: scroll;
     }
-    .descriptionWidth, .commentWidth{
+
+    .descriptionWidth, .commentWidth {
         width: 90vw;
     }
-    #comment{
+
+    #comment {
         margin-top: 10px;
         flex-direction: column;
         justify-content: center;
-    }  
-    .commentContainer{
+    }
+
+    .commentContainer {
         width: 100vw;
-    } 
-    .modidyInputContainer{
+    }
+
+    .modidyInputContainer {
         width: 90vw;
     }
-    .registerInputContainer{
+
+    .registerInputContainer {
         width: 90vw;
         border: 1px solid black;
     }
 }
 
-#imageHeader .modifyOrDelete{
+#imageHeader .modifyOrDelete {
     top: 5vh;
     right: 5vh;
 }
 
-#loadMoreComments{
+#loadMoreComments {
     width: 230px;
     margin-bottom: 5%;
 }
 
-#arrowPointingUp{
-    display:none;
+#arrowPointingUp {
+    display: none;
 }
 
-.registerContainer{
-    height: calc( 100vh - var(--menuHeight));
+.registerContainer {
+    height: calc(100vh - var(--menuHeight));
 }
 
-.mobileMenu{
+.mobileMenu {
     position: fixed;
-    top:90vh;
+    top: 90vh;
     height: 10vh;
-    z-index:9999;
+    z-index: 9999;
 }
 
-.ButtomMobileSpace{
+.ButtomMobileSpace {
     height: 10vh;
 }
 
-.mobileMenuImg{
+.mobileMenuImg {
     width: 8vh;
     cursor: pointer;
 }
 
-#mobileMenuDeployement{
+#mobileMenuDeployement {
     display: none;
     position: fixed;
-    z-index:9999;
+    z-index: 9999;
     bottom: 10vh;
 }
 
-.displayFlex{
-    display:flex !important;
+.displayFlex {
+    display: flex !important;
 }
 
-#registration_form_username,#user_password, #user_username,#registration_form_email,#registration_form_plainPassword{
+#registration_form_username, #user_password, #user_username, #registration_form_email, #registration_form_plainPassword {
     border-width: 0 0 2px;
     border-color: black;
 }
 
-.height90{
+.height90 {
     height: 90vh;
 }

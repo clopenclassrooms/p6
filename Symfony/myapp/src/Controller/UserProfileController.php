@@ -11,7 +11,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
 class UserProfileController extends AbstractController
 {
     /**
@@ -25,17 +24,19 @@ class UserProfileController extends AbstractController
         }
 
         $user = $this->getUser();
-        $form = $this->createForm(UserProfileType::class,$user);
-        $form->add('submit', SubmitType::class, [
+        $form = $this->createForm(UserProfileType::class, $user);
+        $form->add(
+            'submit',
+            SubmitType::class,
+            [
             'label' => 'Mettre à jour mon profile',
-        ]);
+        ]
+        );
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form['img']->getData();
-            if($imgFile)
-            {
+            if ($imgFile) {
                 $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
@@ -50,11 +51,13 @@ class UserProfileController extends AbstractController
             $entityManagerInterface->persist($user);
             $entityManagerInterface->flush();
             return $this->redirectToRoute('modifyProfile');
-
         }
 
-        return $this->render('user_profile/modifyProfile.html.twig', [
+        return $this->render(
+            'user_profile/modifyProfile.html.twig',
+            [
             'form' => $form->createView(),
-        ]);
+        ]
+        );
     }
 }

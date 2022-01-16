@@ -17,11 +17,11 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private $emailVerifier;
+    private $_emailVerifier;
 
     public function __construct(EmailVerifier $emailVerifier)
     {
-        $this->emailVerifier = $emailVerifier;
+        $this->_emailVerifier = $emailVerifier;
     }
 
     /**
@@ -47,8 +47,11 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
+            $this->_emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
+                (
+                    new TemplatedEmail())
                     ->from(new Address('david.hamon.44119@gmail.com', 'david.hamon.44119@gmail.com'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
@@ -59,9 +62,12 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render(
+            'registration/register.html.twig',
+            [
             'registrationForm' => $form->createView(),
-        ]);
+        ]
+        );
     }
 
     /**
@@ -83,7 +89,7 @@ class RegistrationController extends AbstractController
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-            $this->emailVerifier->handleEmailConfirmation($request, $user);
+            $this->_emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
 
