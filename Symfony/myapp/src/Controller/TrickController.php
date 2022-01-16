@@ -150,7 +150,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/delete/{slug}", name="deleteTrick")
      */
-    public function deleteTrick($slug, Request $request, TrickRepository $trickRepository, EntityManagerInterface $entityManagerInterface): Response
+    public function deleteTrick($slug, TrickRepository $trickRepository, EntityManagerInterface $entityManagerInterface): Response
     {
         $securityContext = $this->container->get('security.authorization_checker');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -171,7 +171,7 @@ class TrickController extends AbstractController
      * @Route("/", name="homepage")
      * @Route("/trick/displayAllTricks", name="displayAllTricks")
      */
-    public function displayAllTricks(TrickRepository $trickRepository, SessionInterface $session): Response
+    public function displayAllTricks(TrickRepository $trickRepository): Response
     {
         
         $tricks = $trickRepository->findAll();
