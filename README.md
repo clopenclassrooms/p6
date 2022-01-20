@@ -25,8 +25,9 @@ MAILER_DSN=gmail+smtp://**YOUR_GMAIL_EMAIL**:**YOUR_GMAIL_PASSWORD**@default
     * go to the root of the project
 
     * go to the symfony docker container with the command line :
-`chmod +x ./sbash.sh` 
-`./sbash.sh`
+`chmod +x ./sbash.sh
+
+./sbash.sh`
 
     * go to directory project : 
 `cd /app/myapp/`
