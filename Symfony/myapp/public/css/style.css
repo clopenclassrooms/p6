@@ -259,3 +259,13 @@ img.avatar {
 .height90 {
     height: 90vh;
 }
+
+.headerLink{
+    color: black;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+.headerLink:hover{
+    color: gray;
+}
