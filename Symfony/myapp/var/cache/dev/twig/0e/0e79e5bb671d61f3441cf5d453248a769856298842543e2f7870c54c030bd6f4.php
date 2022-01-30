@@ -59,17 +59,17 @@ class __TwigTemplate_89ee98c13ca7507c4c8095f73ff97d08fa5caa836d8021526b54061e114
         <header>
         <div class=\"d-none d-lg-flex flex-row justify-content-between col-12 menuContainer \">
             <div class=\"\">
-                <div class=\"m-3\"><a href=\"";
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
         // line 18
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("homepage");
         echo "\">Snowtricks</a></div>
             </div>
             <div class=\"d-flex flex-row\">
-                <div class=\"m-3\"><a href=\"";
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
         // line 21
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("homepage");
-        echo "\">accueil</a></div>
-                <div class=\"m-3\"><a href=\"";
+        echo "\">Accueil</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
         // line 22
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("displayAllTricks");
         echo "\">Liste des Tricks</a></div>
@@ -77,7 +77,7 @@ class __TwigTemplate_89ee98c13ca7507c4c8095f73ff97d08fa5caa836d8021526b54061e114
         // line 23
         if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 23, $this->source); })()), "user", [], "any", false, false, false, 23)) {
             // line 24
-            echo "                    <div class=\"m-3\"><a href=\"";
+            echo "                    <div class=\"m-3\"><a class=\"headerLink\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("addTrick");
             echo "\">Rajouter un trick</a></div>
                 ";
@@ -90,20 +90,20 @@ class __TwigTemplate_89ee98c13ca7507c4c8095f73ff97d08fa5caa836d8021526b54061e114
         // line 29
         if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 29, $this->source); })()), "user", [], "any", false, false, false, 29)) {
             // line 30
-            echo "                <div class=\"m-3\"><a href=\"";
+            echo "                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("modifyProfile");
             echo "\">Mon compte</a></div>
-                <div class=\"m-3\"><a href=\"";
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
             // line 31
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_logout");
             echo "\">Se déconnecter</a></div>
                 ";
         } else {
             // line 33
-            echo "                <div class=\"m-3\"><a href=\"";
+            echo "                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             echo "\">Créer un compte</a></div>
-                <div class=\"m-3\"><a href=\"";
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"";
             // line 34
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_login");
             echo "\">S'identifier</a></div>
@@ -300,23 +300,23 @@ class __TwigTemplate_89ee98c13ca7507c4c8095f73ff97d08fa5caa836d8021526b54061e114
         <header>
         <div class=\"d-none d-lg-flex flex-row justify-content-between col-12 menuContainer \">
             <div class=\"\">
-                <div class=\"m-3\"><a href=\"{{ path('homepage')}}\">Snowtricks</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('homepage')}}\">Snowtricks</a></div>
             </div>
             <div class=\"d-flex flex-row\">
-                <div class=\"m-3\"><a href=\"{{ path('homepage')}}\">accueil</a></div>
-                <div class=\"m-3\"><a href=\"{{ path('displayAllTricks')}}\">Liste des Tricks</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('homepage')}}\">Accueil</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('displayAllTricks')}}\">Liste des Tricks</a></div>
                 {% if app.user %}
-                    <div class=\"m-3\"><a href=\"{{ path('addTrick')}}\">Rajouter un trick</a></div>
+                    <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('addTrick')}}\">Rajouter un trick</a></div>
                 {% endif %}
             </div>
             <div class=\"d-flex flex-row\">
 
                 {% if app.user %}
-                <div class=\"m-3\"><a href=\"{{ path('modifyProfile')}}\">Mon compte</a></div>
-                <div class=\"m-3\"><a href=\"{{ path('security_logout')}}\">Se déconnecter</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('modifyProfile')}}\">Mon compte</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('security_logout')}}\">Se déconnecter</a></div>
                 {% else %}
-                <div class=\"m-3\"><a href=\"{{ path('app_register')}}\">Créer un compte</a></div>
-                <div class=\"m-3\"><a href=\"{{ path('security_login')}}\">S'identifier</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('app_register')}}\">Créer un compte</a></div>
+                <div class=\"m-3\"><a class=\"headerLink\" href=\"{{ path('security_login')}}\">S'identifier</a></div>
                 {% endif %}
             </div>
         </div>

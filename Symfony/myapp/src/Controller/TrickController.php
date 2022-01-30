@@ -236,7 +236,7 @@ class TrickController extends AbstractController
      */
     public function loadMoreComments(TrickRepository $trickRepository, $idTrick, $start = 10)
     {
-        $trick = $trickRepository->findOneById((int)$idTrick);
+        $trick = $trickRepository->find((int)$idTrick);
 
         return $this->render(
             'trick/loadMoreComments.html.twig',
