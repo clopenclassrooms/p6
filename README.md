@@ -15,7 +15,7 @@ Download the project from github :
     * In the file **./Symfony/myapp/.env** change the line : 
 MAILER_DSN=gmail+smtp://**YOUR_GMAIL_EMAIL**:**YOUR_GMAIL_PASSWORD**@default
 
-### Inject DATA
+### Configure and run docker
     * go to the docker directory 
 `cd ./docker`
 
@@ -25,6 +25,7 @@ MAILER_DSN=gmail+smtp://**YOUR_GMAIL_EMAIL**:**YOUR_GMAIL_PASSWORD**@default
     * launch docker containers with the commande line : 
 `docker-compose up`
 
+### Inject DATA
     * go to the root of the project
 
     * go to the symfony docker container with the command line :
