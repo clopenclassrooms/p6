@@ -19,6 +19,9 @@ MAILER_DSN=gmail+smtp://**YOUR_GMAIL_EMAIL**:**YOUR_GMAIL_PASSWORD**@default
     * go to the docker directory 
 `cd ./docker`
 
+    * change .env with your personnal configuration : 
+`nano .env`
+
     * launch docker containers with the commande line : 
 `docker-compose up`
 
@@ -38,9 +41,9 @@ MAILER_DSN=gmail+smtp://**YOUR_GMAIL_EMAIL**:**YOUR_GMAIL_PASSWORD**@default
 ## Access to PhpMyAdmin and the websites
 ### PhpMyAdmin
     * For access to PhpMyAdmin go to `http://localhost:8001`
-    * Server : **mariadb**
-    * Login : **bobby**
-    * Password : **tables**
+    * Server : mariadb
+    * Login : bobby
+    * Password : tables
 ### Website
 For access to the website go to `http://localhost:8000`
 
