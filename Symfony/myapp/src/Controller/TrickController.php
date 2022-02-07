@@ -33,7 +33,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/add", name="addTrick")
      */
-    public function addTrick(Request $request, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $entityManagerInterface): Response
+    public function addTrick(TrickRepository $trickRepository, Request $request, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $entityManagerInterface): Response
     {
         $securityContext = $this->container->get('security.authorization_checker');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -42,9 +42,8 @@ class TrickController extends AbstractController
 
         $trickGroups = $trickGroupRepository->findAll();
         $trick = new Trick;
-        
-        $formTrick = $this->createForm(TrickType::class, $trick);
-        $formTrick->add(
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->add(
             'submit',
             SubmitType::class,
             [
@@ -52,38 +51,21 @@ class TrickController extends AbstractController
             ]
         );
         
-        $formTrick->handleRequest($request);
-        if ($formTrick->isSubmitted() && $formTrick->isValid()) {
-            $trick->setCreatedAt(new DateTime());
-            $slugger = new AsciiSlugger();
-            $trick->setSlug($slugger->slug($trick->getName()));
-
-            if ($trick->getTrickGroup()->getName() == null) {
-                $trick->setTrickGroup(null);
-            }
-            foreach ($trick->getVideos() as $video) {
-                if ($video->getUrl() == null) {
-                    $trick->removeVideo($video);
-                } else {
-                    $video->setTrick($trick);
-                }
-            }
-            foreach ($trick->getIllustrations() as $illustration) {
-                if ($illustration->getFileName() == null) {
-                    $trick->removeIllustration($illustration);
-                } else {
-                    $illustration->setTrick($trick);
-                }
-            }
-            $entityManagerInterface->persist($trick);
-            $entityManagerInterface->flush();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trickRepository->addTrick(
+                $trick,
+                $form,
+                $this->getParameter('img_directory'),
+                $entityManagerInterface
+            );
             return $this->redirectToRoute('homepage');
         }
 
         return $this->render(
             'trick/addTrick.html.twig',
             [
-            'form' => $formTrick->createView(),
+            'form' => $form->createView(),
             'trick' => $trick,
             'trickGroups' => $trickGroups
             ]

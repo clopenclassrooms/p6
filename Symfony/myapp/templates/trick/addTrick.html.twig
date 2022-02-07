@@ -4,6 +4,15 @@
 {% block scripts %}
 {{ parent() }}
 <script src="{{ asset('js/add-collection-widget.js') }}"></script>
+<script src="{{ asset('js/addIframe.js') }}"></script>
+<script>
+    function changeImg(e)
+    {
+        var img = e.closest('.illustrationMiniBox').querySelector('.IllustrationContainer img');
+        var url = window.URL.createObjectURL(e.files[0]);
+        img.src = url;
+    }
+</script>
 {% endblock %}
 
 {% block body %}
@@ -28,8 +37,7 @@
             <img class="headerPicture w-100" src="{{ asset('/img/homePageHeader.jpg') }}"></img>
         </div>
     </div>
-</section>
-<section >
+
     <div id="buttonDisplayImgAndVideo" class="justify-content-center m-3">
         <button type="button" class="btn btn-primary" onClick="
                     var mobileMenuDeployement = document.getElementById('illustrationAndVideoContainer');
@@ -47,7 +55,7 @@
         {{ form_row(form.videos) }}
     </div>
     <div class="d-flex flex-row justify-content-center">
-        <div class="w-75 d-flex flex-column ">
+        <div class="modidyInputContainer w-75 d-flex flex-column ">
             <div class="m-3 d-flex flex-column">
                 <div>
                     Description du trick : 
@@ -78,10 +86,18 @@
                     </div>
                 </div>
             </div>
+            <div>                    
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row justify-content-end">
+                        <div class="m-3">
+                        </div>
+                        <div class="m-3">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="text-center">
-        {{ form_widget(form.submit, {'attr':{'class':'m-3 btn-primary btn'}}) }}
     </div>
     {{ form_end(form) }}
 </section>
